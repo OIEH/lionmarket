@@ -4,15 +4,6 @@ from dj_rest_auth.registration.serializers import RegisterSerializer
 from allauth.account.adapter import get_adapter, DefaultAccountAdapter
 from django.core.exceptions import ValidationError as DjangoValidationError
 
-class custom_registration(RegisterSerializer):
-    phone = serializers.CharField
-    address = serializers.CharField
-    def get_cleaned_data(self):
-        data = super().get_cleaned_data()
-        data['phone'] = self.validated_data.get('phone', '')
-        data['address'] = self.validated_data.get('address', '')
-        return super().get_cleaned_data()
-    
 
 
 class UserSerializer(serializers.ModelSerializer):
