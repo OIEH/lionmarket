@@ -5,8 +5,10 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager as Djan
 
 class UserManager(DjangoUserManager):
     def _create_user(self, username, email, password, phone, address,**extra_fields):
-        if not email:
-            raise ValueError('이메일은 필수입니다.')
+        if not username:
+            raise ValueError('아이디는 필수입니다.')
+        if not phone:
+            raise ValueError('전화번호는 필수입니다.')
         user = self.model(username=username, email=email, phone=phone, address=address,**extra_fields)
         user.set_password(password)
         user.save(using=self._db)
@@ -30,10 +32,11 @@ class User(AbstractBaseUser):
     username = models.CharField(verbose_name='아이디',max_length=30,unique=True)
     email = models.EmailField(verbose_name='이메일',max_length=255)
     phone = models.CharField(verbose_name = '전화번호', max_length=11)
-    address = models.CharField(verbose_name = '주소',   max_length=200,null=True)
+    address = models.CharField(verbose_name = '주소',   max_length=200,null=True) 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    
+    is_superuser = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
     objects = UserManager()
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []

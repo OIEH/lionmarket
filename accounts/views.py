@@ -4,10 +4,17 @@ from .forms import UserCreateForm, SignUpForm
 from django.contrib.auth import login,logout
 from users.models import User
 from django.contrib import messages
+from users.serializers import UserSerializer
+from rest_framework import generics
 
 def check_view(request):
     return render(request, 'accounts/check.html')
 
+
+class UserCreate(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    
 def signup_view(request):
     #get 요청시 html응답
     if request.method == 'GET':
