@@ -6,6 +6,9 @@ from rest_framework import urls
 app_name = 'accounts'
 
 urlpatterns = [
-    path('signup/', include('dj_rest_auth.registration.urls')),
-    path('', include('dj_rest_auth.urls')),
+    #path('registration/', include('dj_rest_auth.registration.urls')),
+    #path('', include('dj_rest_auth.urls')),
+    path('signup/', views.UserCreate.as_view()),
+    path('api-auth/', include('rest_framework.urls')),
+
 ]

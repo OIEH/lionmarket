@@ -18,7 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
             'phone':self.validated_data.get('phone',''),
             'address':self.validated_data.get('address',''),
         }
-    def save(self,request):
+    #def save(self,request):
         adapter = get_adapter()
         user = adapter.new_user(request)
         self.cleaned_data = self.get_cleaned_data()

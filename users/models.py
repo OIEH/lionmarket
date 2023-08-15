@@ -7,8 +7,7 @@ class UserManager(DjangoUserManager):
     def _create_user(self, username, email, password, phone, address,**extra_fields):
         if not username:
             raise ValueError('아이디는 필수입니다.')
-        if not phone:
-            raise ValueError('전화번호는 필수입니다.')
+        
         user = self.model(username=username, email=email, phone=phone, address=address,**extra_fields)
         user.set_password(password)
         user.save(using=self._db)
