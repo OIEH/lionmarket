@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-yz9qas#gicc6$phjv&=k$o=utdz+t9zzjsfmw0069pg-8kp!=m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'users',
     'accounts',
     'rest_framework.authtoken',
-    'rest_auth',
+    #'rest_auth',
     #'rest_auth.registration',
     'dj_rest_auth',
     'django.contrib.sites',
@@ -147,6 +147,11 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 ACCOUNT_ADAPTER = 'users.adapters.CustomAccountAdapter'
 
 REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions, # or allow read-only access for unauthenticated users. 
+    'DEFAULT_PERMISSION_CLASSES': [ 'rest_framework.permissions.AllowAny' ] }
+
+"""
+REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
@@ -154,7 +159,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ],
+    
 }
+"""
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'

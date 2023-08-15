@@ -7,14 +7,15 @@ from django.contrib import messages
 from users.serializers import UserSerializer
 from rest_framework import generics
 
-def check_view(request):
-    return render(request, 'accounts/check.html')
+
 
 
 class UserCreate(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    
+"""
+def check_view(request):
+    return render(request, 'accounts/check.html')    
 def signup_view(request):
     #get 요청시 html응답
     if request.method == 'GET':
@@ -64,4 +65,4 @@ def logout_view(request):
         return redirect('accounts:check')
         
         
-    
+    """

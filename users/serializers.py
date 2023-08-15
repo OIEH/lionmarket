@@ -7,9 +7,21 @@ from django.core.exceptions import ValidationError as DjangoValidationError
 
 
 class UserSerializer(serializers.ModelSerializer):
+    
+    def create(self, validated_data):
+        user=User.objects.create_user(
+            username=validated_data['username'],
+            email=validated_data['email'],
+            password=validated_data['password'],
+            phone=validated_data['phone'],
+            address=validated_data['address']
+        )
+        return user
     class Meta:
         model=User
         fields = ['username', 'email', 'password', 'phone', 'address']
+
+    """
     def get_cleaned_data(self):
         return{
             'username':self.validated_data.get('username',''),
@@ -18,7 +30,8 @@ class UserSerializer(serializers.ModelSerializer):
             'phone':self.validated_data.get('phone',''),
             'address':self.validated_data.get('address',''),
         }
-    #def save(self,request):
+    
+    def save(self,request):
         adapter = get_adapter()
         user = adapter.new_user(request)
         self.cleaned_data = self.get_cleaned_data()
@@ -32,5 +45,5 @@ class UserSerializer(serializers.ModelSerializer):
                 )
             user.save()
             return user
-   
+   """
         
